@@ -64,6 +64,11 @@ function App() {
   useEffect(() => {
     drawSun();
     drawBall();
+
+    let dropInterval = setInterval(() => {
+      let ball = document.getElementById('ball').getBoundingClientRect()
+    }, 50)
+    return () => clearInterval(dropInterval);
   })
 
   const letItGo = () => {
@@ -73,7 +78,7 @@ function App() {
   return (
     <div onClick={letItGo}>
       <Spinningsun id='spinning-sun' width={sunWidth} height={sunHeight}></Spinningsun>
-      <canvas id='ball' width={sunWidth} height={ballHeight} className={clicked ? 'drop':'still'}></canvas>
+      <canvas id='ball' width={sunWidth} height={ballHeight} className={clicked ? 'drop' : 'still'}></canvas>
     </div>
   );
 }
