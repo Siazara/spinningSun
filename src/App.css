@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.drop {
+  pointer-events: none;
+  position: relative;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .drop {
+    animation-name: drop-ball;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes drop-ball {
+  from {transform: translate(0px, 0px);}
+  to {transform: translate(0px, -1000px);}
+}

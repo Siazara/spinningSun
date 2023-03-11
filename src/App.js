@@ -1,6 +1,6 @@
-import { useEffect } from "react"
-import styled, { keyframes } from "styled-components"
-
+import { useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
+import './App.css';
 
 const sunWidth = window.screen.width
 const sunHeight = window.screen.height * (1 / 3)
@@ -11,7 +11,6 @@ const thornR = 10
 const sunR = 30
 const X = sunWidth / 2
 const Y = sunHeight / 2
-const clicked = false
 const ballStartX = X
 const ballStartY = ballHeight / 2
 
@@ -27,19 +26,8 @@ animation-iteration-count: infinite;
 animation-timing-function: linear;
 `
 
-const drop = keyframes`
-from {transform: translate(${ballStartX}px, ${ballStartY}px)}
-to {transform: translate(${ballStartX}px, 0px)}
-`
-
-const Ball = styled.canvas`
-animation-name: ${clicked ? drop:null };
-animation-duration: ${10}s;
-animation-iteration-count: infinite;
-animation-timing-function: linear;
-`
-
 function App() {
+  const [clicked, setClicked] = useState(false)
 
   const drawSun = async () => {
     var ctx = document.getElementById('spinning-sun').getContext('2d')
@@ -78,11 +66,14 @@ function App() {
     drawBall();
   })
 
+  const letItGo = () => {
+    setClicked(true)
+  };
+
   return (
-    <div>
+    <div onClick={letItGo}>
       <Spinningsun id='spinning-sun' width={sunWidth} height={sunHeight}></Spinningsun>
-      {/* <Ball id='ball'></Ball> */}
-      <Ball id='ball' width={sunWidth} height={ballHeight}></Ball>
+      <canvas id='ball' width={sunWidth} height={ballHeight} className={clicked ? 'drop':'still'}></canvas>
     </div>
   );
 }
